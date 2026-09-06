@@ -63,8 +63,8 @@ ollama pull llama3.2:3b
 ```
 ├── books/                  # Downloaded source PDFs and extracted text files
 ├── download_books.py       # Automated public-document downloader script
-├── ingest.py         # Chunking & Ollama embeddings -> Qdrant
-├── compare.py              # Runs benchmark; calls query_rag.py + query_no_rag.py
+├── ingest.py               # Chunking & Ollama embeddings -> Qdrant
+├── compare.py              # Runs benchmark; calls RAG and no RAG
 └── README.md
 ```
 
@@ -80,17 +80,7 @@ ollama pull llama3.2:3b
 python ingest.py
 ``` 
 
-* Step 3: Query the RAG Pipeline
-```
-python query_rag.py
-```
-
-* Step 4: Query without RAG baseline
-```
-python query_no_rag.py
-```
-
-* Step 5: Compare RAG vs No-RAG
+* Step 3: Compare RAG vs No-RAG
 ```
 python compare.py
 ```
