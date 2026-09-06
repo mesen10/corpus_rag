@@ -63,12 +63,8 @@ ollama pull llama3.2:3b
 ```
 ├── books/                  # Downloaded source PDFs and extracted text files
 ├── download_books.py       # Automated public-document downloader script
-├── ingest_v1.py         # Chunking & Ollama embeddings -> Qdrant
-├── ingest_v2.py         # Chunking & Ollama embeddings -> Qdrant
-├── query_rag.py            # RAG answer path (retrieval + local LLM)
-├── query_no_rag.py         # Baseline answer path (local LLM only)
-├── compare_v1.py              # Runs benchmark; calls query_rag.py + query_no_rag.py
-├── compare_v2.py              # Runs benchmark; calls query_rag.py + query_no_rag.py
+├── ingest.py         # Chunking & Ollama embeddings -> Qdrant
+├── compare.py              # Runs benchmark; calls query_rag.py + query_no_rag.py
 └── README.md
 ```
 
