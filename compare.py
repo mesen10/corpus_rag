@@ -20,59 +20,106 @@ QDRANT_STORAGE_DIR = "./qdrant_storage"
 COLLECTION_NAME = "gutenberg_books"
 
 TEST_DATASET = [
-    {"id": 1,
-     "question": "What is the basic annual leave entitlement (excluding bank holidays) for an employee with less than 5 years of service?",
-     "expected": "23 days per annum."},
-    {"id": 2,
-     "question": "After how many years of continuous service does the basic annual leave entitlement increase to 28 days?",
-     "expected": "5 years of service."},
-    {"id": 3, "question": "How many statutory and public bank holidays are normally observed per year?",
-     "expected": "8 public and bank holidays per year."},
-    {"id": 4,
-     "question": "How many days of untaken annual leave can employees carry over into the next leave year with prior written consent?",
-     "expected": "Up to a maximum of 5 days."},
-    {"id": 5,
-     "question": "What threshold duration in calendar days distinguishes short-term sickness absence from long-term sickness absence?",
-     "expected": "Short-term is up to 27 days; long-term is 28 calendar days or more."},
-    {"id": 6,
-     "question": "Within how many calendar days of sickness can an employee self-certify before a doctor's fit note is required?",
-     "expected": "Seven calendar days or less."},
-    {"id": 7,
-     "question": "What is the deadline and method for an employee to report their absence on the first day of sickness?",
-     "expected": "Notify line manager by telephone before start time and no later than 1 hour after starting time."},
-    {"id": 8, "question": "When does sickness starting mid-shift count as a full day of sickness absence?",
-     "expected": "When the employee leaves work before completing 50% of their working day."},
-    {"id": 9,
-     "question": "How many weeks of total maternity leave is an employee entitled to take, and how is it split?",
-     "expected": "52 weeks total (26 weeks Ordinary Maternity Leave and 26 weeks Additional Maternity Leave)."},
-    {"id": 10, "question": "What is the mandatory compulsory period of maternity leave following childbirth?",
-     "expected": "A two-week compulsory maternity leave period immediately following the birth."},
-    {"id": 11,
-     "question": "How many 'Keeping in Touch' (KIT) days can an employee attend with full pay during maternity leave?",
-     "expected": "Up to 10 KIT days."},
-    {"id": 12,
-     "question": "How many days of paid Maternity/Adoption Support Leave are granted to a partner or nominated carer?",
-     "expected": "5 days of paid leave."},
-    {"id": 13,
-     "question": "How much written notice in advance must an employee give to request a period of unpaid Parental Leave?",
-     "expected": "At least 21 days' notice in writing."},
-    {"id": 14,
-     "question": "What is the maximum number of weeks of unpaid Parental Leave an employee can take per year per child?",
-     "expected": "Up to 4 weeks per year per child."},
-    {"id": 15,
-     "question": "How many elected members sit on Chichester City Council, and how many wards do they represent?",
-     "expected": "18 elected members representing 5 wards."},
-    {"id": 16, "question": "How many times a year does the Full Council meet?", "expected": "5 times a year."},
-    {"id": 17,
-     "question": "At what spinal column point (SCP) threshold are employees restricted from engaging in political activities?",
-     "expected": "Spinal column point (SCP) 46 or above."},
-    {"id": 18,
-     "question": "Within how many days must an employee lodge an appeal against a formal sickness warning or dismissal?",
-     "expected": "Within 5 days of receiving written confirmation."},
-    {"id": 19, "question": "What is the maximum length of a councillor's term of office before re-election?",
-     "expected": "A maximum of 4 years."},
-    {"id": 20, "question": "Under what circumstance is alcohol allowed on Council premises during working hours?",
-     "expected": "When specifically approved by the Town Clerk."}
+    {
+        "id": 1,
+        "question": "How many elected members make up Chichester City Council, and how many times per year does the Full Council meet?",
+        "expected": "18 elected members; 5 times per year."
+    },
+    {
+        "id": 2,
+        "question": "What is the basic annual leave entitlement (excluding bank holidays) for an employee with less than 5 years of service, and what does it increase to after 5 years of service?",
+        "expected": "23 days per annum (increases to 28 days after 5 years of service)."
+    },
+    {
+        "id": 3,
+        "question": "How many maximum days of unused annual leave are employees permitted to carry forward into the next leave year with prior written consent?",
+        "expected": "Up to 5 days leave (or equivalent of a normal working week for part-time employees)."
+    },
+    {
+        "id": 4,
+        "question": "By what time on the first day of sickness absence must an employee normally notify their manager of non-attendance?",
+        "expected": "By telephone before they are due to start work and no later than one hour after they are due to begin work."
+    },
+    {
+        "id": 5,
+        "question": "How many continuous calendar days of sickness absence require medical evidence in the form of a doctor's fit note rather than a self-certification form?",
+        "expected": "Absences lasting more than 7 calendar days (8 calendar days or more)."
+    },
+    {
+        "id": 6,
+        "question": "What constitutes the distinction between short-term and long-term sickness absence under the Council's definitions?",
+        "expected": "Short-term: a few hours up to 27 calendar days; Long-term: 28 calendar days or more."
+    },
+    {
+        "id": 7,
+        "question": "How many statutory weeks of total maternity leave is an employee entitled to take, and how is it split?",
+        "expected": "52 weeks in total (26 weeks Ordinary Maternity Leave + 26 weeks Additional Maternity Leave)."
+    },
+    {
+        "id": 8,
+        "question": "How many Keeping in Touch (KIT) days is an employee permitted to work during their maternity or adoption leave?",
+        "expected": "Up to 10 KIT days with full pay."
+    },
+    {
+        "id": 9,
+        "question": "How many days of paid leave are granted under Maternity/Adoption Support Leave to the partner or nominated carer?",
+        "expected": "5 days of pay at the time of birth or adoption placement."
+    },
+    {
+        "id": 10,
+        "question": "Within what timeframe must paternity leave be taken following the birth or adoption of a child?",
+        "expected": "Within 52 weeks of the birth or adoption placement."
+    },
+    {
+        "id": 11,
+        "question": "How much continuous service with the Council must an employee have to qualify for parental leave?",
+        "expected": "At least one year's continuous service."
+    },
+    {
+        "id": 12,
+        "question": "How far in advance must an employee advise their manager in writing if they wish to take a period of parental leave?",
+        "expected": "At least 21 days in advance."
+    },
+    {
+        "id": 13,
+        "question": "What is the total allowance of statutory unpaid parental leave per child for eligible employees up to the child's 18th birthday?",
+        "expected": "Up to 18 weeks' unpaid leave per child."
+    },
+    {
+        "id": 14,
+        "question": "Under what circumstance will sickness absence that begins partway through the working day be recorded as half a day's absence?",
+        "expected": "When the employee leaves after completing 50% or more of their working day."
+    },
+    {
+        "id": 15,
+        "question": "What is the minimum advance written notice required if an employee wishes to change the start date of their maternity leave?",
+        "expected": "At least 28 days' notice in writing."
+    },
+    {
+        "id": 16,
+        "question": "Who holds the ultimate responsibility for reviewing and amending the employee code of conduct and staff handbook policies?",
+        "expected": "The Personnel Sub-Committee."
+    },
+    {
+        "id": 17,
+        "question": "How many minimum working days' notice must an employee be given when invited in writing to a formal sickness absence management meeting?",
+        "expected": "A minimum of 5 working days' notice."
+    },
+    {
+        "id": 18,
+        "question": "Within how many calendar days must an employee lodge a written appeal after receiving confirmation of a formal sickness absence sanction or dismissal?",
+        "expected": "Within 5 days of receiving written confirmation."
+    },
+    {
+        "id": 19,
+        "question": "Which spinal column point (SCP) threshold restricts employees from standing for political posts or engaging in public political activities?",
+        "expected": "Spinal column point (SCP) 46 or above (or posts determined as 'politically sensitive')."
+    },
+    {
+        "id": 20,
+        "question": "How long does a formal warning issued regarding poor attendance remain in place?",
+        "expected": "A minimum of six months."
+    }
 ]
 
 
