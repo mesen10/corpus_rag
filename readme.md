@@ -73,12 +73,10 @@ ollama pull llama3.2:3b
 ~~`python download_books.py`~~
 
 * Step 1: Manually download the source documents and put them under the `books/` folder.
-```
-
 * Step 2: Ingest Documents into Qdrant
 ```
 python ingest.py
-``` 
+```
 
 * Step 3: Compare RAG vs No-RAG
 ```
