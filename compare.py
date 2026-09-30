@@ -17,7 +17,7 @@ from langchain_core.output_parsers import StrOutputParser
 LLM_MODEL = "llama3.2"
 EMBEDDING_MODEL = "nomic-embed-text"
 QDRANT_STORAGE_DIR = "./qdrant_storage"
-COLLECTION_NAME = "gutenberg_books"
+COLLECTION_NAME = "corpus_docs"
 
 TEST_DATASET = [
     {

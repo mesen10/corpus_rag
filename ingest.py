@@ -16,7 +16,7 @@ from langchain_ollama import OllamaEmbeddings
 
 BOOKS_DIR = "./books"
 QDRANT_STORAGE_DIR = "./qdrant_storage"
-COLLECTION_NAME = "gutenberg_books"
+COLLECTION_NAME = "corpus_docs"
 EMBEDDING_MODEL = "nomic-embed-text"
 
 # Smaller chunk size with larger proportional overlap to preserve exact policy figures
