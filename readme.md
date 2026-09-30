@@ -38,8 +38,8 @@ Sacred Heart University Faculty Handbook
 | Model | Size | Strengths for RAG & Documents | Ollama Command |
 | :--- | :--- | :--- | :--- |
 | **Llama 3.2 (3B)** | ~2.0 GB | **Best Overall:** Excellent context recall, high precision with extracted text excerpts. | `ollama run llama3.2:3b` |
-| **Phi-3.5 Mini (3.8B)** | ~2.2 GB | **Fast & Balanced:** Low resource footprint with clean context adherence. | `ollama run phi3.5` |
-| **Gemma 2 (2B)** | ~1.6 GB | **Ultra-Lightweight:** Runs on low-spec CPUs and older laptops effortlessly. | `ollama run gemma2:2b` |
+| **Qwen2.5 (3B)** | ~1.9 GB | **Strong Instruction Following:** Sticks tightly to context, low hallucination on structured extraction. | `ollama pull qwen2.5:3b` |
+| **Mistral (7B)** | ~4.1 GB | **Higher Quality:** Larger model, still CPU-runnable, best for nuanced policy language. | `ollama pull mistral` |
 
 ---
 
