@@ -38,8 +38,8 @@ Sacred Heart University Faculty Handbook
 | Model | Size | Strengths for RAG & Documents | Ollama Command |
 | :--- | :--- | :--- | :--- |
 | **Llama 3.2 (3B)** | ~2.0 GB | **Best Overall:** Excellent context recall, high precision with extracted text excerpts. | `ollama run llama3.2:3b` |
-| **Qwen2.5 (3B)** | ~1.9 GB | **Strong Instruction Following:** Sticks tightly to context, low hallucination on structured extraction. | `ollama pull qwen2.5:3b` |
-| **Mistral (7B)** | ~4.1 GB | **Higher Quality:** Larger model, still CPU-runnable, best for nuanced policy language. | `ollama pull mistral` |
+| **Ornith-1.5 (9B)** | ~5.4 GB | **High Quality:** Larger model, still CPU-runnable, strong on nuanced policy language. | `ollama pull ornith-1.5:9b` |
+| **Granite 4.2 (3B)** | ~2.1 GB | **Enterprise-Tuned:** IBM Granite line, tuned for grounded document QA and low hallucination. | `ollama pull granite4.2:3b` |
 
 ---
 
@@ -83,7 +83,7 @@ python ingest.py
 python compare.py
 ```
 
-## Sample Results
+## Sample Results Llama 3.2 (3B)
 
 ```
 ================================================================================
@@ -223,4 +223,147 @@ Question [20/20]: How long does a formal warning issued regarding poor attendanc
  RAG Total Score      : 80 / 100 pts (80.0%)
  Net Gain             : +48 points
 ================================================================================
+```
+
+## Sample Results Ornith-1.5 (9B)
+
+```
+================================================================================
+ Querying High-Precision Qdrant RAG Pipeline
+ Database Path : ./qdrant_storage
+ Search Strategy: MMR (k=6, fetch_k=15, lambda=0.65)
+================================================================================
+
+Question [1/20]: How many elected members make up Chichester City Council, and how many times per year does the Full Council meet?
+  • Expected Answer : 18 elected members; 5 times per year.
+  • No-RAG Answer   : Chichester City Council is made up of 54 elected councillors, and the Full Council meets approximately 10 times per year (roughly twice a month). (0/5 pts)
+  • RAG Answer      : Chichester City Council comprises 18 elected members, and the Full Council meets five times per year. (5/5 pts)
+  • Judge Reason    : Model 1 gives both numbers wrong (54 councillors and ~10 meetings instead of 18 and 5), while Model 2 matches the expected answer exactly.
+--------------------------------------------------------------------------------
+Question [2/20]: What is the basic annual leave entitlement (excluding bank holidays) for an employee with less than 5 years of service, and what does it increase to after 5 years of service?
+  • Expected Answer : 23 days per annum (increases to 28 days after 5 years of service).
+  • No-RAG Answer   : Under the UK Civil Service scheme, an employee with less than 5 years of service is entitled to **25 days** of annual leave, which increases to **27.5 days** after 5 years of service. (0/5 pts)
+  • RAG Answer      : The basic annual leave entitlement is 23 days per annum, and it increases to 28 days after 5 years of service. (5/5 pts)
+  • Judge Reason    : Model 1 gives incorrect figures (25 days / 27.5 days) that contradict the expected answer, while Model 2 matches the expected answer exactly (23 days increasing to 28 days).
+--------------------------------------------------------------------------------
+Question [3/20]: How many maximum days of unused annual leave are employees permitted to carry forward into the next leave year with prior written consent?
+  • Expected Answer : Up to 5 days leave (or equivalent of a normal working week for part-time employees).
+  • No-RAG Answer   : I don't have access to the specific policy document you're referencing, so I can't confirm the exact number of days. Could you share the relevant handbook or policy text so I can give you an accurate answer? (0/5 pts)
+  • RAG Answer      : Employees are permitted to carry forward up to a maximum of **5 days** of unused annual leave (or the equivalent of a normal working week if they work part-time), with prior written consent from their line manager. (5/5 pts)
+  • Judge Reason    : Model 1 refuses to answer and provides no information, while Model 2 correctly states the exact 5-day maximum plus the part-time equivalent and prior written consent, matching the expected answer.
+--------------------------------------------------------------------------------
+Question [4/20]: By what time on the first day of sickness absence must an employee normally notify their manager of non-attendance?
+  • Expected Answer : By telephone before they are due to start work and no later than one hour after they are due to begin work.
+  • No-RAG Answer   : Employees are normally expected to notify their manager by **9:00 AM** on the first day of sickness absence. (0/5 pts)
+  • RAG Answer      : Normally, the employee should notify their manager of non-attendance by telephone before they are due to start work, and in any event no later than one hour after they are due to begin work. (5/5 pts)
+  • Judge Reason    : Model 1 hallucinates a specific time (9:00 AM) that contradicts the expected answer, while Model 2 accurately captures all key elements (by telephone, before start, and no later than one hour after).
+--------------------------------------------------------------------------------
+Question [5/20]: How many continuous calendar days of sickness absence require medical evidence in the form of a doctor's fit note rather than a self-certification form?
+  • Expected Answer : Absences lasting more than 7 calendar days (8 calendar days or more).
+  • No-RAG Answer   : In the UK, employees are self-certified for the first **7 days** of sickness absence, after which a doctor's fit note (medical evidence) is required. (5/5 pts)
+  • RAG Answer      : Sickness absences lasting **longer than seven calendar days** require medical evidence in the form of a doctor's fit note, whereas the first seven calendar days can be self-certified. (5/5 pts)
+  • Judge Reason    : Both answers correctly state that the first 7 days are self-certified and a doctor's fit note is required after that, which is equivalent to the expected answer of more than 7 calendar days (8 or more).
+--------------------------------------------------------------------------------
+Question [6/20]: What constitutes the distinction between short-term and long-term sickness absence under the Council's definitions?
+  • Expected Answer : Short-term: a few hours up to 27 calendar days; Long-term: 28 calendar days or more.
+  • No-RAG Answer   : The distinction is typically based on duration: short-term sickness absence generally refers to absence lasting up to four weeks, while long-term sickness absence refers to absence exceeding four weeks. (Note: exact thresholds can vary by specific Council policy, so it's worth confirming the precise definition in your organisation's handbook.) (0/5 pts)
+  • RAG Answer      : Short-term sickness absence is defined as any period of sickness lasting from a few hours up to 27 calendar days, whereas long-term sickness absence is any period of sickness lasting 28 calendar days or more. (5/5 pts)
+  • Judge Reason    : Model 1 incorrectly states a four-week threshold (28 days) rather than the correct 27/28-day split, while Model 2 exactly matches the expected answer with the precise 27/28 calendar day figures.
+--------------------------------------------------------------------------------
+Question [7/20]: How many statutory weeks of total maternity leave is an employee entitled to take, and how is it split?
+  • Expected Answer : 52 weeks in total (26 weeks Ordinary Maternity Leave + 26 weeks Additional Maternity Leave).
+  • No-RAG Answer   : An employee is entitled to **52 weeks** of statutory maternity leave, split into **26 weeks of paid leave** (Statutory Maternity Pay or Maternity Allowance) and **26 weeks of unpaid leave**. (5/5 pts)
+  • RAG Answer      : Based on the provided context, the only maternity leave figures stated are **26 weeks of Additional Maternity Leave (AML)** and a **compulsory two-week period of maternity leave immediately following the birth**. The context does not explicitly state a total statutory maternity leave entitlement or how it is split between ordinary and additional leave. (1/5 pts)
+  • Judge Reason    : Model 1 correctly states the 52-week total split into 26+26 weeks (matching the expected answer), while Model 2 fails to provide the total entitlement or the ordinary/additional split, only mentioning 26 weeks AML.
+--------------------------------------------------------------------------------
+Question [8/20]: How many Keeping in Touch (KIT) days is an employee permitted to work during their maternity or adoption leave?
+  • Expected Answer : Up to 10 KIT days with full pay.
+  • No-RAG Answer   : An employee is permitted to work up to **10 Keeping in Touch (KIT) days** during their maternity or adoption leave without losing their leave entitlement. (5/5 pts)
+  • RAG Answer      : An employee is permitted to attend work with full pay for up to 10 'Keeping in Touch' (KIT) days during their maternity or adoption leave without losing their entitlements to leave and pay. (5/5 pts)
+  • Judge Reason    : Both answers correctly state the key metric of 10 KIT days during maternity/adoption leave; Model 2 is marginally more complete by explicitly mentioning 'full pay,' but both are factually accurate and complete enough for full marks.
+--------------------------------------------------------------------------------
+Question [9/20]: How many days of paid leave are granted under Maternity/Adoption Support Leave to the partner or nominated carer?
+  • Expected Answer : 5 days of pay at the time of birth or adoption placement.
+  • No-RAG Answer   : Under the Paid Parental Leave scheme, a partner or nominated carer is granted **10 days** of paid Maternity/Adoption Support Leave. (0/5 pts)
+  • RAG Answer      : 5 days of pay are granted at the time of the birth/placement. (5/5 pts)
+  • Judge Reason    : Model 1 incorrectly states 10 days instead of the correct 5 days, while Model 2 accurately matches the expected answer of 5 days of pay at birth/adoption placement.
+--------------------------------------------------------------------------------
+Question [10/20]: Within what timeframe must paternity leave be taken following the birth or adoption of a child?
+  • Expected Answer : Within 52 weeks of the birth or adoption placement.
+  • No-RAG Answer   : Paternity leave must generally be taken within 56 days of the child's birth (in the UK), though this timeframe varies by country and employer policy. (1/5 pts)
+  • RAG Answer      : Paternity leave must be taken within 52 weeks of the birth (or adoption placement). (5/5 pts)
+  • Judge Reason    : Model 2 correctly states the 52-week timeframe matching the expected answer, while Model 1 incorrectly cites 56 days instead of 52 weeks, making it factually inaccurate against the expected answer.
+--------------------------------------------------------------------------------
+Question [11/20]: How much continuous service with the Council must an employee have to qualify for parental leave?
+  • Expected Answer : At least one year's continuous service.
+  • No-RAG Answer   : I don't have specific information about which Council you're referring to or their exact parental leave policy. The continuous service requirement would be outlined in that particular Council's employee handbook or leave policy, so I'd recommend checking their official HR resources or contacting their human resources department directly. (0/5 pts)
+  • RAG Answer      : An employee must have at least one year's continuous service with the Council by the time they want to take the leave. (5/5 pts)
+  • Judge Reason    : Model 1 declines to answer and provides no factual information, while Model 2 correctly states the exact requirement of at least one year's continuous service.
+--------------------------------------------------------------------------------
+Question [12/20]: How far in advance must an employee advise their manager in writing if they wish to take a period of parental leave?
+  • Expected Answer : At least 21 days in advance.
+  • No-RAG Answer   : Under UK law, an employee must give at least 28 weeks' notice in writing to their manager if they wish to take parental leave. (0/5 pts)
+  • RAG Answer      : An employee must advise their manager in writing at least 21 days before they wish to take the parental leave. (5/5 pts)
+  • Judge Reason    : Model 1 incorrectly states 28 weeks' notice (wrong metric), while Model 2 correctly matches the expected 21 days in advance.
+--------------------------------------------------------------------------------
+Question [13/20]: What is the total allowance of statutory unpaid parental leave per child for eligible employees up to the child's 18th birthday?
+  • Expected Answer : Up to 18 weeks' unpaid leave per child.
+  • No-RAG Answer   : Eligible employees are entitled to **18 weeks** of statutory unpaid parental leave for each child under 18. (5/5 pts)
+  • RAG Answer      : Based on the provided context, eligible employees are entitled to a total of **18 weeks of ordinary parental leave** per child, up to the child's 18th birthday. (5/5 pts)
+  • Judge Reason    : Both answers correctly state the key metric of 18 weeks of parental leave per child, matching the expected answer; Model 2 uses 'ordinary parental leave' instead of 'unpaid parental leave,' a minor terminology difference that does not affect the core accuracy.
+--------------------------------------------------------------------------------
+Question [14/20]: Under what circumstance will sickness absence that begins partway through the working day be recorded as half a day's absence?
+  • Expected Answer : When the employee leaves after completing 50% or more of their working day.
+  • No-RAG Answer   : Sickness absence is recorded in units of half a day, so any absence that begins partway through the working day (rather than at the start) is recorded as half a day's absence. (1/5 pts)
+  • RAG Answer      : Sickness absence that begins after the employee has completed 50% of their working day will be recorded as half a day's absence. (5/5 pts)
+  • Judge Reason    : Model 1 fails to mention the 50% threshold and incorrectly states that ANY absence beginning partway is recorded as half a day, while Model 2 correctly identifies the 50% completion rule matching the expected answer.
+--------------------------------------------------------------------------------
+Question [15/20]: What is the minimum advance written notice required if an employee wishes to change the start date of their maternity leave?
+  • Expected Answer : At least 28 days' notice in writing.
+  • No-RAG Answer   : Under UK statutory maternity leave rules, an employee must give at least **28 days' written notice** to change the start date of their maternity leave. (5/5 pts)
+  • RAG Answer      : At least 28 days' notice in writing is required to change the start date of maternity leave. (5/5 pts)
+  • Judge Reason    : Both answers correctly state the required 28 days' written notice, matching the expected answer exactly.
+--------------------------------------------------------------------------------
+Question [16/20]: Who holds the ultimate responsibility for reviewing and amending the employee code of conduct and staff handbook policies?
+  • Expected Answer : The Personnel Sub-Committee.
+  • No-RAG Answer   : The ultimate responsibility typically rests with the employer or the organization's top leadership (such as the CEO or executive team), who may delegate day-to-day updates to a designated committee or HR department. (0/5 pts)
+  • RAG Answer      : The Personnel Sub-Committee holds the responsibility for reviewing and amending the employee code of conduct and policies contained in the employee handbook. (5/5 pts)
+  • Judge Reason    : Model 1 gives a generic answer that fails to identify the specific Personnel Sub-Committee, while Model 2 correctly matches the expected answer exactly.
+--------------------------------------------------------------------------------
+Question [17/20]: How many minimum working days' notice must an employee be given when invited in writing to a formal sickness absence management meeting?
+  • Expected Answer : A minimum of 5 working days' notice.
+  • No-RAG Answer   : An employee must be given at least **5 working days' notice** when invited in writing to a formal sickness absence management meeting, in line with ACAS guidance. (5/5 pts)
+  • RAG Answer      : An employee must be given a minimum of **five working days' notice** when invited in writing to a formal sickness absence management meeting. (5/5 pts)
+  • Judge Reason    : Both answers correctly state the minimum of 5 working days' notice, matching the expected answer exactly.
+--------------------------------------------------------------------------------
+Question [18/20]: Within how many calendar days must an employee lodge a written appeal after receiving confirmation of a formal sickness absence sanction or dismissal?
+  • Expected Answer : Within 5 days of receiving written confirmation.
+  • No-RAG Answer   : An employee must lodge a written appeal within **5 working days** of receiving confirmation of the sanction or dismissal. (Note: this reflects a common UK public-sector/NHS policy timeframe—verify against your specific organisation's policy, as some may specify calendar days or a different period.) (1/5 pts)
+  • RAG Answer      : Based on the provided context, an employee must lodge their appeal within **five days** of receiving written confirmation of the sanction imposed on them (Context Chunk 1). Note that for appeals against a formal warning or dismissal, the requirement is **five working days** (Context Chunk 6). (5/5 pts)
+  • Judge Reason    : Model 1 incorrectly states '5 working days' instead of the expected '5 calendar days,' while Model 2 correctly answers 'five days' matching the expected answer.
+--------------------------------------------------------------------------------
+Question [19/20]: Which spinal column point (SCP) threshold restricts employees from standing for political posts or engaging in public political activities?
+  • Expected Answer : Spinal column point (SCP) 46 or above (or posts determined as 'politically sensitive').
+  • No-RAG Answer   : This question appears to be based on a false premise—there is no such thing as a "spinal column point (SCP) threshold" that restricts employees from political activities. The terms "spinal column" (an anatomical structure) and political activity restrictions are unrelated, so no such threshold exists. (0/5 pts)
+  • RAG Answer      : SCP 46. (5/5 pts)
+  • Judge Reason    : Model 1 incorrectly rejects the premise and scores 0, while Model 2 correctly provides the exact threshold (SCP 46), matching the expected answer and earning 5.
+--------------------------------------------------------------------------------
+Question [20/20]: How long does a formal warning issued regarding poor attendance remain in place?
+  • Expected Answer : A minimum of six months.
+  • No-RAG Answer   : A formal warning typically remains in place for **6 to 12 months**, though the exact duration depends on your organization's specific attendance policy. I'd recommend checking your employee handbook or HR guidelines for the precise timeframe. (1/5 pts)
+  • RAG Answer      : A formal warning regarding poor attendance remains in place for a minimum of six months. (5/5 pts)
+  • Judge Reason    : Model 2 exactly matches the expected answer of a minimum of six months, while Model 1 gives an inaccurate range of 6-12 months and fails to state the correct minimum.
+--------------------------------------------------------------------------------
+
+================================================================================
+ OPTIMIZED RAG SCOREBOARD
+================================================================================
+ Model Tested         : ornith-1.5:9b
+ Total Questions      : 20
+ Max Score Possible   : 100 pts
+ No-RAG Total Score   : 34 / 100 pts (34.0%)
+ RAG Total Score      : 96 / 100 pts (96.0%)
+ Net Gain             : +62 points
+================================================================================
+
 ```

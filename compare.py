@@ -15,6 +15,8 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
 LLM_MODEL = "llama3.2"
+# LLM_MODEL = "ornith-1.5:9b"
+# LLM_MODEL = "granite4.2:3b"
 EMBEDDING_MODEL = "nomic-embed-text"
 QDRANT_STORAGE_DIR = "./qdrant_storage"
 COLLECTION_NAME = "corpus_docs"
